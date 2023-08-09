@@ -18,16 +18,15 @@ namespace ThirdPartyAPI2.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ThirdPartyAPI : ControllerBase
+    public class ThirdPartyAPIController : ControllerBase
     {
-        private readonly SqliteConnection dbConn;
         private IThirdPartyAPIService _thirdPartyAPIService;
 
-        public ThirdPartyAPI(IThirdPartyAPIService thirdPartyAPIService)
+        public ThirdPartyAPIController(IThirdPartyAPIService thirdPartyAPIService)
         {
             _thirdPartyAPIService = thirdPartyAPIService;
         }
-        private readonly ILogger<ThirdPartyAPI> _logger;
+        private readonly ILogger<ThirdPartyAPIController> _logger;
 
         private void sendServerCallbackRequest(string id, string body)
         {
@@ -79,7 +78,7 @@ namespace ThirdPartyAPI2.Controllers
         [Route("/callback/{id}"), HttpPost]
         public async Task<IActionResult> PostCallbackAsync(string id)
         {
-            if (String.IsNullOrEmpty(id.ToString()))
+            if (String.IsNullOrEmpty(id))
             {
                 return BadRequest("bad id");
             }
@@ -140,9 +139,9 @@ namespace ThirdPartyAPI2.Controllers
         [Route("/status/{id}"), HttpGet]
         public IActionResult GetStatus(string id)
         {
-            if (String.IsNullOrEmpty(id.ToString()))
+            if (String.IsNullOrEmpty(id))
             {
-                return BadRequest("bad id");
+                return BadRequest("Bad Id");
             }
 
             BodyObject bo;
