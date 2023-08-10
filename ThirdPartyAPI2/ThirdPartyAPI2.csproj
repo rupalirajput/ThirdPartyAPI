@@ -13,7 +13,6 @@
     <None Remove="Entities\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.32" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="3.1.32" />
   </ItemGroup>

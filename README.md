@@ -74,3 +74,60 @@ for when the request was initiated and when the latest update occurred.
 # Technologies Used
 
 The primary tools used for this work are C# (.NET Core) and the Visual Studio IDE.
+
+# Build Instructions
+
+In order to build the solution the best way is to import it with your Visual
+Studio and install these packages before running the Web API server:
+
+- Microsoft.EntityFramework.Core
+- Microsoft.EntityFramework.Core.InMemeory
+- Microsoft.Net Test Sdk
+- xunit
+- xunit.runner.visualstudio
+
+Finally, start the server. The best way to interact with the server is using curl commands:
+
+curl -X POST \
+  http://localhost:5000/request \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: fc54a523-fe95-4b1f-b21d-e32ff182c347' \
+  -H 'cache-control: no-cache' \
+  -d '{
+  "body": "this is the document binary data ..."
+}'
+03edafd4-a9f5-467c-b808-bead0234ec00
+
+
+curl -X POST \
+  http://localhost:5000/callback/03edafd4-a9f5-467c-b808-bead0234ec00 \
+  -H 'Postman-Token: 06d3451d-9508-4f56-bc9a-d51eaa69294f' \
+  -H 'cache-control: no-cache' \
+  -d STARTED
+
+
+curl -X PUT \
+  http://localhost:5000/callback/03edafd4-a9f5-467c-b808-bead0234ec00 \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 974ebb51-f1ba-425b-bc66-60e9d5a08329' \
+  -H 'cache-control: no-cache' \
+  -d '{
+  "status": "PROCESSED",
+  "detail": "some detail ..."
+}'
+
+curl -X GET \
+  http://localhost:5000/status/03edafd4-a9f5-467c-b808-bead0234ec00 \
+  -H 'Content-Type: application/json' \
+  -H 'Postman-Token: 960a0f81-e0f1-4c42-a082-9fc7b7b335d0' \
+  -H 'cache-control: no-cache'
+
+Sample Response:
+
+{
+    "status": "PROCESSED",
+    "detail": "some detail ...",
+    "body": "this is the document binary data ...",
+    "createdAt": "2023-08-09T18:05:48.733519-07:00",
+    "updatedAt": "2023-08-09T18:06:51.828899-07:00"
+}
