@@ -10,6 +10,7 @@
     <None Remove="Services\" />
     <None Remove="Microsoft.EntityFrameworkCore" />
     <None Remove="Microsoft.EntityFrameworkCore.InMemory" />
+    <None Remove="Entities\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.Sqlite" Version="7.0.9" />

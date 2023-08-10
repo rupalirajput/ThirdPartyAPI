@@ -20,7 +20,6 @@
     "ThirdPartyAPI2": {
       "commandName": "Project",
       "launchBrowser": true,
-      "launchUrl": "ThirdPartyAPI",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
