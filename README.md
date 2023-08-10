@@ -88,6 +88,9 @@ Studio and install these packages before running the Web API server:
 
 Finally, start the server. The best way to interact with the server is using curl commands:
 
+Lets first send a request to the server to stage a docuemnt file:
+
+```bash
 curl -X POST \
   http://localhost:5000/request \
   -H 'Content-Type: application/json' \
@@ -97,15 +100,24 @@ curl -X POST \
   "body": "this is the document binary data ..."
 }'
 03edafd4-a9f5-467c-b808-bead0234ec00
+```
+
+Notice that the previous cURL request generated a unique request ID `03edafd4-a9f5-467c-b808-bead0234ec00`.
 
 
+Next, we'll use this request ID to MOCK a third-party-api server callback with the STARTED status:
+
+```bash
 curl -X POST \
   http://localhost:5000/callback/03edafd4-a9f5-467c-b808-bead0234ec00 \
   -H 'Postman-Token: 06d3451d-9508-4f56-bc9a-d51eaa69294f' \
   -H 'cache-control: no-cache' \
   -d STARTED
+```
 
+Next, imagine we are running this cURL command after 10 business days to PUT a status update on the doucment request using the same unique identifier:
 
+```bash
 curl -X PUT \
   http://localhost:5000/callback/03edafd4-a9f5-467c-b808-bead0234ec00 \
   -H 'Content-Type: application/json' \
@@ -115,15 +127,21 @@ curl -X PUT \
   "status": "PROCESSED",
   "detail": "some detail ..."
 }'
+```
 
+Finally, we can check the status of our document processing using the /status/{id} API with the cURL command:
+
+```bash
 curl -X GET \
   http://localhost:5000/status/03edafd4-a9f5-467c-b808-bead0234ec00 \
   -H 'Content-Type: application/json' \
   -H 'Postman-Token: 960a0f81-e0f1-4c42-a082-9fc7b7b335d0' \
   -H 'cache-control: no-cache'
+```
 
-Sample Response:
+The same response of the above command is like this:
 
+```json
 {
     "status": "PROCESSED",
     "detail": "some detail ...",
@@ -131,3 +149,4 @@ Sample Response:
     "createdAt": "2023-08-09T18:05:48.733519-07:00",
     "updatedAt": "2023-08-09T18:06:51.828899-07:00"
 }
+```
