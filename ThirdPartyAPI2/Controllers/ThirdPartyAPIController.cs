@@ -70,9 +70,12 @@ namespace ThirdPartyAPI2.Controllers
          * }
          * RETURNS String
          *
-         * This accepts a JSON body consisting of a one key, "body", which is a string. Doing 
-         * this will initiate a request to the third-party service. It will also create a unique 
-         * identifer for this request we can later reference. This unique identifier string is returned by this API call.
+         *
+         * This accepts a JSON body consisting of a one key, "body", which is a
+         * string. Doing this will initiate a request to the third-party
+         * service. It will also create a unique identifer for this request we
+         * can later reference. This unique identifier string is returned by
+         * this API call.
          */
         [Route("/request"), HttpPost]
         public IActionResult PostRequest(RequestObject req)
@@ -117,7 +120,6 @@ namespace ThirdPartyAPI2.Controllers
          * 
          * This URL is sent in the original /request handler. The third-party-service service is expected to send an
          * initial POST with the text string `STARTED` on this API to indicate that they have received the request.
-         * 
          */
         [Route("/callback/{id}"), HttpPost]
         public async Task<IActionResult> PostCallbackAsync(string id)
@@ -218,9 +220,7 @@ namespace ThirdPartyAPI2.Controllers
          * Using the unique ID in the query arg, this API will return the status of the request
          * from the service. It will return the status, detail and original body, as well as timestamps 
          * for when the request was initiated and when the latest update occurred.
-         *   
          */
-
         [Route("/status/{id}"), HttpGet]
         public IActionResult GetStatus(string id)
         {
